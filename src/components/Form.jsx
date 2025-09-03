@@ -330,6 +330,7 @@ const Form = () => {
 
   return (
     <div className="form-div">
+      <div className="title"><h2>Dynamic form</h2></div>
       <form onSubmit={submitHandler} style={{ width: "90%" }} className="form-container">
         {formInfo.map((field) => renderField(field))}
         <div className="btn-div">
