@@ -138,7 +138,6 @@ const Form = () => {
   };
 
   const handleChange = (slug, value,type) => {
-    console.log("slug", slug, "value", value);
     if(type === 'number' || type === 'select' ){
 
       setFormData({ ...formData, [slug]: Number(value)});
@@ -151,7 +150,6 @@ const Form = () => {
 
   const submitHandler = (e) => {
       e.preventDefault();
-    //   console.log("errors",errors);
     const validationErrors = validate();
 
     if (Object.keys(validationErrors).length > 0) {
