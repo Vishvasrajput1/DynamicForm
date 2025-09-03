@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 const Form = () => {
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
@@ -126,7 +125,6 @@ const Form = () => {
   },
 ];
 
-
   const validate = () => {
     const newErrors = {};
     formInfo.map((field) => {
@@ -137,8 +135,19 @@ const Form = () => {
     return newErrors;
   };
 
+  
+
   const handleChange = (slug, value,type) => {
-    if(type === 'number' || type === 'select' ){
+    if(type === 'checkbox'){
+      console.log("value",value);
+      const currentArray = formData[slug] || [];
+      if (currentArray.includes(value)) {
+        setFormData({ ...formData, [slug]: currentArray.filter((item) => item !== value) });
+      } else {
+        setFormData({ ...formData, [slug]: [...currentArray, value] });
+      }
+    }
+    else if(type === 'number' || type === 'select' ){
 
       setFormData({ ...formData, [slug]: Number(value)});
     }
@@ -213,7 +222,7 @@ const Form = () => {
               disabled={!field.isEditable}
               onChange={(e) => handleChange(field.slug, e.target.value,field.type)}
             >
-              <option value="">select skill</option>
+              <option value="">select {field.label}</option>
               {field.options.map((option) => {
                 return (
                   <option key={option.value} value={option.value}>
