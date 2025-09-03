@@ -135,11 +135,20 @@ const Form = () => {
     return newErrors;
   };
 
-  
+  const validateForm=()=>{
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   const handleChange = (slug, value,type) => {
+   
+    
+    
     if(type === 'checkbox'){
-      console.log("value",value);
       const currentArray = formData[slug] || [];
       if (currentArray.includes(value)) {
         setFormData({ ...formData, [slug]: currentArray.filter((item) => item !== value) });
@@ -250,6 +259,7 @@ const Form = () => {
                   type="radio"
                   id={`${field.slug}_${option.value}`}
                   value={option.value}
+                  name={field.label}
                   disabled={!field.isEditable}
                   onChange={(e) => handleChange(field.slug, e.target.value,field.type)}
                 />
@@ -342,7 +352,9 @@ const Form = () => {
         {formInfo.map((field) => renderField(field))}
         <div className="btn-div">
           <div className="btn-div-2">
-          <button type="submit" className="signup-btn">
+          <button type="submit" className="signup-btn" disabled={ 
+            validateForm()
+          } >
             submit
           </button>
           </div>
